@@ -4,6 +4,9 @@ const title = document.querySelector('.title');
 const formSearch = document.querySelector('.form-search');
 const choicesElem = document.querySelector('.js-choice');
 
+const declOfNum = (n, titles) => titles[n % 10 === 1 && n % 100 !== 11 ?
+	  0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+
 const choises = new Choices(choicesElem, {
 	searchEnabled: false,
 	itemSelectText: '',
@@ -98,13 +101,19 @@ const loadNews = async () => {
 };
 
 const loadSearch = async (value) => {
+    newsList.innerHTML = '<li class="proload"></li>';
 	const data = await getData(
 		`https://newsapi.org/v2/everything?q=${value}
 	`
 	);
 	title.classList.remove('hide');
+    const arr1 = ['найден', 'найдено', 'найдено'];
+    const arr2 = ['результат', 'результата', 'результатов'];
+    const count = data.articles.length;
 	title.textContent = `
-        По вашему запросу ${value} найдено  ${data.articles.length} результатов
+        По вашему запросу ${value} ${declOfNum(count, arr1)}  ${count} ${declOfNum(
+		count, arr2
+	)}  
     `;
 	choises.setChoiceByValue('');
 	renderCard(data.articles);
