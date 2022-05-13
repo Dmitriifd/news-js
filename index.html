@@ -19,8 +19,8 @@
         <div class="container flex-center">
             <img class="logo" src="img/logo.png" alt="logo">
             <form class="form-search flex-center">
-                <label class="search-label">
-                    <input class="search-input" type="text">
+                <div class="search-label">
+                    <input class="search-input" type="text" name="search">
                     <button class="search-submit" type="submit">
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -29,7 +29,7 @@
                         </svg>
 
                     </button>
-                </label>
+                </div>
                 
                 <select class="js-choice" name="country">
                     <option value="">Выберите страну</option>
@@ -50,14 +50,14 @@
         <div class="title-wrapper">
             <div class="container">
                 <h1 class="visually-hidden">Агрегатор новостей</h1>
-                <h2 class="title">По вашему запросу “новости про IT” найдено 6 результатов</h2>
+                <h2 class="title hide">По вашему запросу “новости про IT” найдено 6 результатов</h2>
             </div>
         </div>      
         <section class="news">
             <h2 class="visually-hidden">Список новостей</h2>
             <div class="container">
                 <ul class="news-list">
-                    <li class="news-item">
+                  <!--   <li class="news-item">
                         <img class="news-image" src="img/1.jpg" alt="img" width="270" height="200">
                         <h3 class="news-title">
                             <a class="news-link" href="#" target="_blank">
@@ -116,7 +116,7 @@
                             </time>
                             <div class="news-author">Эрик Крипке</div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </section>
