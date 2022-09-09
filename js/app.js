@@ -17,9 +17,9 @@ const getData = async (url) => {
 		headers: {
 			'x-api-key': API_KEY,
 		},
+    method: 'GET',
 	});
 
-  
   if (response.ok) return await response.json();
 	
 };
@@ -60,6 +60,7 @@ const getImage = (url) =>
 	});
 
 const renderCard =  (data) => {
+  console.log(data);
 	newsList.textContent = '';
 	data.forEach(async (news) => {
 		const card = document.createElement('li');
