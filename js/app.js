@@ -18,9 +18,10 @@ const getData = async (url) => {
 			'x-api-key': API_KEY,
 		},
 	});
-	const data = await response.json();
 
-	return data;
+  
+  if (response.ok) return await response.json();
+	
 };
 
 const getDateCorrectFormat = (isoDate) => {
@@ -133,3 +134,4 @@ formSearch.addEventListener('submit', (e) => {
 });
 
 loadNews();
+
