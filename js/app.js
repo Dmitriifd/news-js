@@ -98,14 +98,14 @@ const loadNews = async () => {
 	const country = localStorage.getItem('country') || 'ru';
 	choises.setChoiceByValue(country);
 	title.classList.add('hide');
-	const data = await getData(`https://newsapi.org/v2/top-headlines?country=${country}&category=technology`);
+	const data = await getData(`https://newsapi.org/v2/top-headlines?country=${country}&category=technology&apiKey=${API_KEY}`);
 	renderCard(data.articles);
 };
 
 const loadSearch = async (value) => {
 	newsList.innerHTML = '<li class="proload"></li>';
 	const data = await getData(
-		`https://newsapi.org/v2/everything?q=${value}
+		`https://newsapi.org/v2/everything?q=${value}&apiKey=${API_KEY}
 	`
 	);
 	title.classList.remove('hide');
