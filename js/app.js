@@ -16,6 +16,7 @@ const getData = async (url) => {
 		headers: {
 			'x-api-key': API_KEY,
 		},
+		mode: 'cors',
 		method: 'GET',
 	});
 
