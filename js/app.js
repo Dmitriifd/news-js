@@ -12,13 +12,7 @@ const choises = new Choices(choicesElem, {
 });
 
 const getData = async (url) => {
-	const response = await fetch(url, {
-		headers: {
-			'x-api-key': API_KEY,
-		},
-		mode: 'cors',
-		method: 'GET',
-	});
+	const response = await fetch(url);
 
   if (!response.ok) {
 		throw new Error(response.error);
