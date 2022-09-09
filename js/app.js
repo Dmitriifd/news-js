@@ -4,8 +4,7 @@ const title = document.querySelector('.title');
 const formSearch = document.querySelector('.form-search');
 const choicesElem = document.querySelector('.js-choice');
 
-const declOfNum = (n, titles) => titles[n % 10 === 1 && n % 100 !== 11 ?
-	  0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+const declOfNum = (n, titles) => titles[n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
 
 const choises = new Choices(choicesElem, {
 	searchEnabled: false,
@@ -17,11 +16,14 @@ const getData = async (url) => {
 		headers: {
 			'x-api-key': API_KEY,
 		},
-    method: 'GET',
+		method: 'GET',
 	});
 
-  if (response.ok) return await response.json();
-	
+  if (!response.ok) {
+		throw new Error(response.error);
+	}
+
+	return await response.json();
 };
 
 const getDateCorrectFormat = (isoDate) => {
@@ -49,7 +51,7 @@ const getImage = (url) =>
 		});
 
 		image.addEventListener('error', () => {
-            image.src = 'img/nophoto.jpg';
+			image.src = 'img/nophoto.jpg';
 			resolve(image);
 		});
 
@@ -59,8 +61,8 @@ const getImage = (url) =>
 		return image;
 	});
 
-const renderCard =  (data) => {
-  console.log(data);
+const renderCard = (data) => {
+	console.log(data);
 	newsList.textContent = '';
 	data.forEach(async (news) => {
 		const card = document.createElement('li');
@@ -96,26 +98,22 @@ const loadNews = async () => {
 	const country = localStorage.getItem('country') || 'ru';
 	choises.setChoiceByValue(country);
 	title.classList.add('hide');
-	const data = await getData(
-		`https://newsapi.org/v2/top-headlines?country=${country}&category=technology`
-	);
+	const data = await getData(`https://newsapi.org/v2/top-headlines?country=${country}&category=technology`);
 	renderCard(data.articles);
 };
 
 const loadSearch = async (value) => {
-    newsList.innerHTML = '<li class="proload"></li>';
+	newsList.innerHTML = '<li class="proload"></li>';
 	const data = await getData(
 		`https://newsapi.org/v2/everything?q=${value}
 	`
 	);
 	title.classList.remove('hide');
-    const arr1 = ['найден', 'найдено', 'найдено'];
-    const arr2 = ['результат', 'результата', 'результатов'];
-    const count = data.articles.length;
+	const arr1 = ['найден', 'найдено', 'найдено'];
+	const arr2 = ['результат', 'результата', 'результатов'];
+	const count = data.articles.length;
 	title.textContent = `
-        По вашему запросу ${value} ${declOfNum(count, arr1)}  ${count} ${declOfNum(
-		count, arr2
-	)}  
+        По вашему запросу ${value} ${declOfNum(count, arr1)}  ${count} ${declOfNum(count, arr2)}  
     `;
 	choises.setChoiceByValue('');
 	renderCard(data.articles);
@@ -135,4 +133,3 @@ formSearch.addEventListener('submit', (e) => {
 });
 
 loadNews();
-
